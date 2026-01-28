@@ -1,7 +1,7 @@
 // src/pages/TicketStatus.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./ticketStatus.css";
+import "./ticketstatus.css";
 
 const API_BASE =
   import.meta?.env?.VITE_API_BASE_URL?.replace(/\/$/, "") ||

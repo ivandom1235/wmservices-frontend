@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../api";
-import "./adminLogin.css";
+import "./adminlogin.css";
 
 export default function AdminLogin() {
   const nav = useNavigate();

@@ -1,7 +1,7 @@
 // src/pages/ServiceTicket.jsx
 import { useNavigate, useParams } from "react-router-dom";
 import { useMemo, useState, useEffect } from "react";
-import "./serviceTicket.css";
+import "./serviceticket.css";
 
 const API_BASE =
   import.meta?.env?.VITE_API_BASE_URL?.replace(/\/$/, "") ||

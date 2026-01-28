@@ -1,7 +1,7 @@
 // src/pages/RaiseTicket.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./raiseTicket.css";
+import "./raiseticket.css";
 
 const API_BASE =
   import.meta?.env?.VITE_API_BASE_URL?.replace(/\/$/, "") ||

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../api";
-import "./operationsWelcome.css";
+import "./operationswelcome.css";
 
 function getCookie(name) {
   const s = `; ${document.cookie}`;
