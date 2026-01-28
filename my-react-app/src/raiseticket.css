@@ -1,0 +1,291 @@
+/* src/pages/raiseTicket.css */
+
+.rt-page {
+  --bg-0: #070707;
+  --bg-1: #0b0b0b;
+  --card: rgba(20, 20, 20, 0.72);
+  --text: #f2f2f2;
+  --muted: rgba(242, 242, 242, 0.62);
+  --border: rgba(255, 255, 255, 0.10);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+  --accent: #f5c518;
+  --accent-2: #ffdf6a;
+  --focus: rgba(245, 197, 24, 0.22);
+
+  min-height: 100vh;
+  padding: 88px 16px 48px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  background:
+    radial-gradient(900px 700px at 20% 10%, rgba(245, 197, 24, 0.12), transparent 60%),
+    radial-gradient(700px 500px at 85% 15%, rgba(255, 255, 255, 0.06), transparent 55%),
+    radial-gradient(900px 700px at 55% 95%, rgba(245, 197, 24, 0.08), transparent 60%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1));
+}
+
+.rt-container {
+  width: 100%;
+  max-width: 1100px;
+  padding: 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  position: relative;
+  overflow: hidden;
+}
+
+.rt-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 197, 24, 0.55), transparent);
+  opacity: 0.9;
+}
+
+.rt-container::after {
+  content: "";
+  position: absolute;
+  inset: -140px -170px auto auto;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(245, 197, 24, 0.18), transparent 60%);
+  pointer-events: none;
+}
+
+/* Header */
+.rt-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.rt-title {
+  margin: 0;
+  font-size: 1.45rem;
+  font-weight: 850;
+  letter-spacing: 0.2px;
+}
+
+.rt-subtitle {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.rt-header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* User pill */
+.rt-userline {
+  margin-top: 14px;
+}
+
+.rt-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(242, 242, 242, 0.92);
+  font-size: 0.95rem;
+}
+
+.rt-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.14);
+}
+
+/* Search */
+.rt-search {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+}
+
+.rt-label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.rt-input {
+  width: 100%;
+  padding: 12px 12px;
+  background: rgba(10, 10, 10, 0.70);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.rt-input::placeholder {
+  color: rgba(242, 242, 242, 0.35);
+}
+
+.rt-input:focus {
+  outline: none;
+  border-color: rgba(245, 197, 24, 0.60);
+  box-shadow: 0 0 0 4px var(--focus);
+  background: rgba(12, 12, 12, 0.85);
+}
+
+/* Buttons */
+.rt-btn {
+  padding: 12px 14px;
+  border: none;
+  border-radius: 14px;
+  font-weight: 850;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  background: linear-gradient(180deg, #ffdf6a, var(--accent));
+  color: #000;
+  box-shadow: 0 14px 30px rgba(245, 197, 24, 0.18);
+}
+
+.rt-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+  box-shadow: 0 18px 44px rgba(245, 197, 24, 0.24);
+}
+
+.rt-btn:active {
+  transform: translateY(0px);
+}
+
+.rt-btn-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.rt-btn-secondary:hover {
+  background: rgba(245, 197, 24, 0.10);
+  border-color: rgba(245, 197, 24, 0.45);
+  color: var(--accent);
+  box-shadow: none;
+}
+
+.rt-btn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.rt-btn-ghost:hover {
+  background: rgba(245, 197, 24, 0.10);
+  border-color: rgba(245, 197, 24, 0.45);
+  color: var(--accent);
+  box-shadow: none;
+}
+
+/* Grid */
+.rt-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.rt-card {
+  text-align: left;
+  padding: 14px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  color: var(--text);
+}
+
+.rt-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(245, 197, 24, 0.40);
+  background: rgba(245, 197, 24, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.rt-card:active {
+  transform: translateY(0px);
+}
+
+.rt-card-title {
+  font-weight: 850;
+  letter-spacing: 0.2px;
+  font-size: 1rem;
+}
+
+.rt-card-sub {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Empty + error */
+.rt-empty {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(242, 242, 242, 0.88);
+}
+
+.rt-error {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(220, 20, 60, 0.35);
+  background: rgba(220, 20, 60, 0.10);
+  color: rgba(255, 210, 216, 0.95);
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .rt-page {
+    padding: 72px 14px 38px;
+  }
+
+  .rt-container {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .rt-title {
+    font-size: 1.25rem;
+  }
+
+  .rt-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .rt-header-actions {
+    margin-left: 0;
+  }
+}

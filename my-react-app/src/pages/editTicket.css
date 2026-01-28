@@ -1,0 +1,294 @@
+/* src/pages/editTicket.css */
+
+.et-page {
+  --bg-0: #070707;
+  --bg-1: #0b0b0b;
+  --card: rgba(20, 20, 20, 0.72);
+  --text: #f2f2f2;
+  --muted: rgba(242, 242, 242, 0.62);
+  --border: rgba(255, 255, 255, 0.10);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+  --accent: #f5c518;
+  --accent-2: #ffdf6a;
+  --focus: rgba(245, 197, 24, 0.22);
+
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  background:
+    radial-gradient(900px 700px at 20% 10%, rgba(245, 197, 24, 0.12), transparent 60%),
+    radial-gradient(700px 500px at 85% 15%, rgba(255, 255, 255, 0.06), transparent 55%),
+    radial-gradient(900px 700px at 55% 95%, rgba(245, 197, 24, 0.08), transparent 60%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1));
+
+  padding: 72px 16px 44px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.et-shell {
+  width: 100%;
+  max-width: 1100px;
+  display: grid;
+  gap: 16px;
+}
+
+.et-header {
+  display:flex;
+  padding: 18px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  position: relative;
+    justify-content: space-between;
+  overflow: hidden;
+
+  
+}
+
+.et-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 197, 24, 0.55), transparent);
+  opacity: 0.9;
+}
+
+.et-header::after {
+  content: "";
+  position: absolute;
+  inset: -120px -140px auto auto;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(245, 197, 24, 0.18), transparent 60%);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.et-kicker {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.52);
+  margin-bottom: 6px;
+}
+
+.et-title {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.et-card {
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.et-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.et-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 260px;
+  flex: 1;
+}
+
+.et-field label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.et-field input,
+.et-field textarea {
+  width: 100%;
+  padding: 12px 12px;
+  background: rgba(10, 10, 10, 0.70);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  outline: none;
+}
+
+.et-field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.et-field input::placeholder,
+.et-field textarea::placeholder {
+  color: rgba(242, 242, 242, 0.35);
+}
+
+.et-field input:focus,
+.et-field textarea:focus {
+  border-color: rgba(245, 197, 24, 0.60);
+  box-shadow: 0 0 0 4px var(--focus);
+  background: rgba(12, 12, 12, 0.85);
+}
+
+.et-field input[readonly],
+.et-field textarea[readonly] {
+  opacity: 0.85;
+  cursor: not-allowed;
+}
+
+.et-message {
+  margin-top: 12px;
+  font-size: 0.92rem;
+  color: var(--accent);
+}
+
+.et-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.et-grid .span-2 {
+  grid-column: span 2;
+}
+
+.et-footer {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.et-btn-soft,
+.et-btn-primary {
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease,
+    box-shadow 0.15s ease, filter 0.15s ease;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.et-btn-soft {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+}
+
+.et-btn-soft:hover {
+  border-color: rgba(245, 197, 24, 0.45);
+  background: rgba(245, 197, 24, 0.10);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.et-btn-primary {
+  border: none;
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  color: #000;
+  font-weight: 900;
+  padding: 12px 14px;
+  box-shadow: 0 14px 30px rgba(245, 197, 24, 0.18);
+}
+
+.et-btn-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.02);
+  box-shadow: 0 18px 44px rgba(245, 197, 24, 0.24);
+}
+
+.et-btn-primary:active,
+.et-btn-soft:active {
+  transform: translateY(0px);
+}
+
+.et-btn-primary:disabled,
+.et-btn-soft:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.et-btn-soft:focus-visible,
+.et-btn-primary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--focus);
+  border-color: rgba(245, 197, 24, 0.60);
+}
+
+/* Responsive */
+@media (max-width: 760px) {
+  .et-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .et-grid .span-2 {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .et-page {
+    padding: 60px 14px 38px;
+  }
+
+  .et-header,
+  .et-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .et-btn-soft,
+  .et-btn-primary {
+    width: 100%;
+  }
+
+  .et-footer {
+    flex-direction: column;
+  }
+}
+/* src/pages/editTicket.css (add these styles) */
+
+.et-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease,
+    color 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+}
+
+.et-btn-ghost:hover {
+  border-color: rgba(245, 197, 24, 0.45);
+  background: rgba(245, 197, 24, 0.10);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.et-btn-ghost:active {
+  transform: translateY(1px);
+}
