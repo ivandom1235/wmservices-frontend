@@ -3,6 +3,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
+const API_BASE =
+  import.meta?.env?.VITE_API_BASE_URL?.replace(/\/$/, "") ||
+  "http://localhost:5000";
+
 export default function Login() {
   const navigate = useNavigate();
 
@@ -11,14 +15,12 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
 
-
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setMsg("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/login", {
+      const res = await fetch(`${API_BASE}/api/login`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -51,7 +53,6 @@ export default function Login() {
         <h2>Employee Login</h2>
 
         <form onSubmit={handleLogin}>
-
           <label>Username</label>
           <input
             value={username}
