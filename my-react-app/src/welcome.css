@@ -13,7 +13,7 @@
   --focus: rgba(245, 197, 24, 0.22);
 
   min-height: 100vh;
-  padding: 88px 16px 48px;
+  padding: 72px 16px 44px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -30,7 +30,7 @@
 .welcome-container {
   width: 100%;
   max-width: 760px;
-  padding: 30px;
+  padding: 28px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -66,6 +66,7 @@
   display: flex;
   gap: 14px;
   align-items: flex-start;
+  justify-content: space-between;
 }
 
 .welcome-header-left {
@@ -118,6 +119,7 @@
   box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.14);
 }
 
+/* Buttons row */
 .welcome-actions {
   margin-top: 22px;
   display: flex;
@@ -125,13 +127,15 @@
   flex-wrap: wrap;
 }
 
+/* Base button */
 .welcome-btn {
   padding: 12px 14px;
   border: none;
   border-radius: 14px;
   font-weight: 800;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease, background 0.15s ease,
+    border-color 0.15s ease, color 0.15s ease;
   background: linear-gradient(180deg, var(--accent-2), var(--accent));
   color: #000;
   box-shadow: 0 14px 30px rgba(245, 197, 24, 0.18);
@@ -147,6 +151,12 @@
   transform: translateY(0px);
 }
 
+.welcome-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--focus);
+}
+
+/* Secondary = subtle outline */
 .welcome-btn-secondary {
   background: rgba(255, 255, 255, 0.06);
   color: var(--text);
@@ -161,12 +171,15 @@
   box-shadow: none;
 }
 
+/* Ghost used ONLY for header (Logout) */
 .welcome-btn-ghost {
-  margin-left: auto;
   background: rgba(255, 255, 255, 0.06);
   color: var(--text);
   border: 1px solid var(--border);
   box-shadow: none;
+  padding: 10px 14px;
+  height: fit-content;
+  flex-shrink: 0;
 }
 
 .welcome-btn-ghost:hover {
@@ -175,11 +188,7 @@
   color: var(--accent);
 }
 
-.welcome-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 4px var(--focus);
-}
-
+/* Error */
 .welcome-error {
   margin-top: 12px;
   padding: 12px 12px;
@@ -189,6 +198,7 @@
   color: rgba(255, 210, 216, 0.95);
 }
 
+/* Hint */
 .welcome-hint {
   margin-top: 18px;
   color: var(--muted);
@@ -199,7 +209,7 @@
 
 @media (max-width: 520px) {
   .welcome-page {
-    padding: 72px 14px 38px;
+    padding: 60px 14px 38px;
   }
 
   .welcome-container {
@@ -211,12 +221,18 @@
     font-size: 1.35rem;
   }
 
-  .welcome-btn-ghost {
-    margin-left: 0;
-  }
-
   .welcome-header {
     flex-direction: column;
     align-items: stretch;
+    gap: 12px;
+  }
+
+  .welcome-btn-ghost {
+    width: 100%;
+  }
+
+  .welcome-btn,
+  .welcome-btn-secondary {
+    width: 100%;
   }
 }

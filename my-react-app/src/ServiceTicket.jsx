@@ -180,6 +180,8 @@ const REQUEST_TYPES_BY_CATEGORY = {
     "International Driving permit",
     "Duplicate RC 2 and 4 wheeler",
     "Duplicate DL 2 and 4 wheeler",
+    "FC Renewal",
+    "Re-Registration"
   ],
 
   "Party & Events Services": [
@@ -633,6 +635,10 @@ if (category === "RTO Services") {
       return { serviceCharge: 0, cost: "Case to Case", dueDurationText: "60 Working Days", dueDurationMinutes: 60 * 24 * 60 };
     case "Renewal of DL":
       return { serviceCharge: 0, cost: "Case to Case", dueDurationText: "30 Working Days", dueDurationMinutes: 30 * 24 * 60 };
+    case "FC Renewal":
+      return { serviceCharge: 0, cost: "Case to Case", dueDurationText: "30 Working Days", dueDurationMinutes: 30 * 24 * 60 };
+    case "Re-Registration":
+      return { serviceCharge: 0, cost: "Case to Case", dueDurationText: "30 Working Days", dueDurationMinutes: 30 * 24 * 60 };  
     default:
       return { serviceCharge: 0, cost: "Case to Case", dueDurationText: "30 Working Days", dueDurationMinutes: 30 * 24 * 60 };
   }

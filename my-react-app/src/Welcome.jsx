@@ -111,6 +111,13 @@ export default function Welcome() {
           >
             Ticket Status
           </button>
+
+          <button
+            className="welcome-btn welcome-btn-secondary"
+            onClick={() => nav("/view-download-report?from=user")}
+          >
+            My Report
+          </button>
         </div>
 
         <div className="welcome-hint">
