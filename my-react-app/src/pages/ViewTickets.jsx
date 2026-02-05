@@ -13,10 +13,6 @@ export default function ViewTickets() {
 
   const user = loc.state?.user;
 
-  // ✅ Back target logic (same pattern as report):
-  // 1) state: nav("/view-tickets", { state: { backTo: "/operations", user } })
-  // 2) query: /view-tickets?from=operations  (or admin/executive)
-  // 3) fallback: history back, else /welcome (keeps your current behavior)
   const backTo = (() => {
     const st = loc.state || {};
     if (typeof st.backTo === "string" && st.backTo.trim()) return st.backTo.trim();
@@ -114,7 +110,10 @@ export default function ViewTickets() {
               {query ? (
                 <button
                   className="vt-btn-soft"
-                  onClick={() => setQuery("")}
+                  onClick={() => {
+                    setQuery("");
+                    setTimeout(fetchTickets, 0);
+                  }}
                   disabled={loading}
                   type="button"
                 >
@@ -140,10 +139,11 @@ export default function ViewTickets() {
                 <tr>
                   {[
                     "Ticket Number",
+                    "Company Name",
                     "Customer Name",
                     "Particulars",
                     "Description",
-                    "Due Date",
+                    "Cost",
                     "Created At",
                     "Status",
                     "Due Duration",
@@ -156,13 +156,13 @@ export default function ViewTickets() {
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan={8} className="vt-td-center">
+                    <td colSpan={9} className="vt-td-center">
                       Loading...
                     </td>
                   </tr>
                 ) : filtered.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="vt-td-center">
+                    <td colSpan={9} className="vt-td-center">
                       No tickets found.
                     </td>
                   </tr>
@@ -170,10 +170,11 @@ export default function ViewTickets() {
                   filtered.map((t) => (
                     <tr key={t.id || t.ticket_number}>
                       <td className="mono">{t.ticket_number}</td>
-                      <td>{t.customer_name}</td>
-                      <td>{t.particulars}</td>
-                      <td className="vt-desc">{t.description}</td>
-                      <td>{t.due_date ? new Date(t.due_date).toLocaleString() : "-"}</td>
+                      <td>{t.company_name || "-"}</td>
+                      <td>{t.customer_name || "-"}</td>
+                      <td>{t.particulars || "-"}</td>
+                      <td className="vt-desc">{t.description || "-"}</td>
+                      <td>{t.cost || "-"}</td>
                       <td>{t.created_at ? new Date(t.created_at).toLocaleString() : "-"}</td>
                       <td>
                         <span className={`vt-pill ${String(t.status || "").toLowerCase()}`}>

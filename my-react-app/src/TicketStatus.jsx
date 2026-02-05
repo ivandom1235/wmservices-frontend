@@ -108,7 +108,10 @@ export default function TicketStatus() {
           </div>
 
           <div className="ts-header-actions">
-            <button className="ts-btn ts-btn-secondary" onClick={() => nav("/welcome")}>
+            <button
+              className="ts-btn ts-btn-secondary"
+              onClick={() => nav("/welcome")}
+            >
               Back
             </button>
 
@@ -180,10 +183,11 @@ export default function TicketStatus() {
               <tr>
                 {[
                   "Ticket Number",
+                  "Company Name",
                   "Customer Name",
                   "Particulars",
                   "Description",
-                  "Due Date",
+                  "Cost",
                   "Created At",
                   "Status",
                   "Due Duration",
@@ -196,13 +200,13 @@ export default function TicketStatus() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="ts-td-muted">
+                  <td colSpan={9} className="ts-td-muted">
                     Loading...
                   </td>
                 </tr>
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="ts-td-muted">
+                  <td colSpan={9} className="ts-td-muted">
                     No tickets found.
                   </td>
                 </tr>
@@ -210,20 +214,21 @@ export default function TicketStatus() {
                 filtered.map((t) => (
                   <tr key={t.id || t.ticket_number}>
                     <td className="ts-td-mono">{t.ticket_number}</td>
-                    <td>{t.customer_name}</td>
-                    <td>{t.particulars}</td>
-                    <td className="ts-td-desc">{t.description}</td>
-                    <td className="ts-td-nowrap">
-                      {t.due_date ? new Date(t.due_date).toLocaleString() : "-"}
-                    </td>
+                    <td>{t.company_name || "-"}</td>
+                    <td>{t.customer_name || "-"}</td>
+                    <td>{t.particulars || "-"}</td>
+                    <td className="ts-td-desc">{t.description || "-"}</td>
+                    <td className="ts-td-nowrap">{t.cost || "-"}</td>
                     <td className="ts-td-nowrap">
                       {t.created_at ? new Date(t.created_at).toLocaleString() : "-"}
                     </td>
                     <td>
-                      <span className={`ts-status ts-status-${String(t.status || "")
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}`}>
-                        {t.status}
+                      <span
+                        className={`ts-status ts-status-${String(t.status || "")
+                          .toLowerCase()
+                          .replace(/\s+/g, "-")}`}
+                      >
+                        {t.status || "-"}
                       </span>
                     </td>
                     <td>{t.due_duration_text || "-"}</td>
