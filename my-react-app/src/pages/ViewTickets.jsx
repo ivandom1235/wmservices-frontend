@@ -7,6 +7,14 @@ const API_BASE =
   import.meta?.env?.VITE_API_BASE_URL?.replace(/\/$/, "") ||
   "http://localhost:5000";
 
+const STATUS_OPTIONS = [
+  "registered",
+  "in_progress",
+  "delayed",
+  "completed",
+  "resolved",
+];
+
 export default function ViewTickets() {
   const nav = useNavigate();
   const loc = useLocation();
@@ -15,7 +23,8 @@ export default function ViewTickets() {
 
   const backTo = (() => {
     const st = loc.state || {};
-    if (typeof st.backTo === "string" && st.backTo.trim()) return st.backTo.trim();
+    if (typeof st.backTo === "string" && st.backTo.trim())
+      return st.backTo.trim();
 
     const sp = new URLSearchParams(loc.search || "");
     const from = (sp.get("from") || "").toLowerCase();
@@ -68,9 +77,123 @@ export default function ViewTickets() {
     const q = query.trim().toLowerCase();
     if (!q) return tickets;
     return tickets.filter((t) =>
-      String(t.ticket_number || "").toLowerCase().includes(q)
+      String(t.ticket_number || "")
+        .toLowerCase()
+        .includes(q),
     );
   }, [tickets, query]);
+
+const goEdit = (t) => {
+  const tn = t?.ticket_number;
+  if (!tn) return;
+
+  // Decide context reliably (ops/admin/welcome) even if backTo is null
+  const sp = new URLSearchParams(loc.search || "");
+  const from = (sp.get("from") || "").toLowerCase();
+
+  const isOps =
+    (backTo || "").startsWith("/operations") ||
+    from === "operations" ||
+    from === "ops" ||
+    loc.pathname.startsWith("/operations");
+
+  const editPath = isOps ? "/operations/tickets/edit" : "/admin/tickets/edit";
+
+  nav(editPath, {
+    state: {
+      user,
+      backTo: backTo || (isOps ? "/operations" : "/admin"),
+      ticketNumber: tn,
+      ticket: t,
+    },
+  });
+};
+
+
+  const updateRowLocal = (ticketNumber, patch) => {
+    setTickets((prev) =>
+      prev.map((t) =>
+        String(t.ticket_number) === String(ticketNumber)
+          ? { ...t, ...patch }
+          : t,
+      ),
+    );
+  };
+
+  const onChangeStatus = async (t, nextStatus) => {
+  const tn = t?.ticket_number;
+  if (!tn) return;
+
+  const prevStatus = t.status;
+
+  let payload = { status: nextStatus };
+
+  if (String(nextStatus).toLowerCase() === "completed") {
+    const op = window.prompt("Enter Operations Remarks (will go in email):");
+    if (op === null) {
+      updateRowLocal(tn, { status: prevStatus });
+      return;
+    }
+
+    const opRemarks = String(op || "").trim();
+    if (!opRemarks) {
+      updateRowLocal(tn, { status: prevStatus });
+      alert("OP Remarks cannot be empty.");
+      return;
+    }
+
+    const receipt = window.prompt("Enter Receipt No (stored internally):");
+    if (receipt === null) {
+      updateRowLocal(tn, { status: prevStatus });
+      return;
+    }
+
+    const receiptNo = String(receipt || "").trim();
+    if (!receiptNo) {
+      updateRowLocal(tn, { status: prevStatus });
+      alert("Receipt No cannot be empty.");
+      return;
+    }
+
+    payload = {
+      status: "completed",
+      receiptNo,
+      opRemarks,
+    };
+  }
+
+  // optimistic
+  updateRowLocal(tn, { status: nextStatus });
+
+  try {
+    const res = await fetch(
+      `${API_BASE}/api/tickets/${encodeURIComponent(tn)}/status`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (!res.ok) {
+      const txt = await res.text().catch(() => "");
+      throw new Error(txt || `Update failed (${res.status})`);
+    }
+
+    const data = await res.json();
+    if (data?.ticket) {
+      updateRowLocal(data.ticket.ticket_number, data.ticket);
+    }
+
+    if (nextStatus === "completed") {
+      alert("Status updated to completed and email sent.");
+    }
+  } catch (e) {
+    updateRowLocal(tn, { status: prevStatus });
+    alert(e?.message || "Failed to update status.");
+  }
+};
+
 
   return (
     <div className="vt-page">
@@ -146,7 +269,7 @@ export default function ViewTickets() {
                     "Cost",
                     "Created At",
                     "Status",
-                    "Due Duration",
+                    "Remarks",
                   ].map((h) => (
                     <th key={h}>{h}</th>
                   ))}
@@ -169,19 +292,59 @@ export default function ViewTickets() {
                 ) : (
                   filtered.map((t) => (
                     <tr key={t.id || t.ticket_number}>
-                      <td className="mono">{t.ticket_number}</td>
+                      <td className="mono">
+                        <button
+                          type="button"
+                          className="vt-link"
+                          onClick={() => goEdit(t)}
+                          title="Edit ticket"
+                          style={{
+                            background: "transparent",
+                            border: "none",
+                            padding: 0,
+                            cursor: "pointer",
+                            textDecoration: "underline",
+                            font: "inherit",
+                          }}
+                        >
+                          {t.ticket_number}
+                        </button>
+                      </td>
                       <td>{t.company_name || "-"}</td>
                       <td>{t.customer_name || "-"}</td>
                       <td>{t.particulars || "-"}</td>
                       <td className="vt-desc">{t.description || "-"}</td>
                       <td>{t.cost || "-"}</td>
-                      <td>{t.created_at ? new Date(t.created_at).toLocaleString() : "-"}</td>
                       <td>
-                        <span className={`vt-pill ${String(t.status || "").toLowerCase()}`}>
-                          {t.status || "-"}
-                        </span>
+                        {t.created_at
+                          ? new Date(t.created_at).toLocaleString()
+                          : "-"}
                       </td>
-                      <td>{t.due_duration_text || "-"}</td>
+                      <td>
+                        <div className="vt-status-wrap">
+                          <span
+                            className={`vt-status-dot ${String(t.status || "registered").toLowerCase()}`}
+                            aria-hidden="true"
+                          />
+                          <select
+                            className="vt-status-select"
+                            value={
+                              String(t.status || "").toLowerCase() ||
+                              "registered"
+                            }
+                            onChange={(e) => onChangeStatus(t, e.target.value)}
+                            disabled={loading}
+                          >
+                            {STATUS_OPTIONS.map((s) => (
+                              <option key={s} value={s}>
+                                {s}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </td>
+
+                      <td className="vt-desc">{t.remark || "-"}</td>
                     </tr>
                   ))
                 )}

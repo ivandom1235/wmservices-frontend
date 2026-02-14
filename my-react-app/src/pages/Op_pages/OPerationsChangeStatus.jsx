@@ -46,25 +46,47 @@ export default function OperationsChangeStatus() {
   };
 
   const save = async () => {
-    setMsg({ type: "", text: "" });
+  setMsg({ type: "", text: "" });
 
-    const tn = ticketNumber.trim();
-    if (!tn) return setMsg({ type: "err", text: "Enter ticket number" });
+  const tn = ticketNumber.trim();
+  if (!tn) return setMsg({ type: "err", text: "Enter ticket number" });
+
+  let receiptNo = null;
+
+  try {
+    if (status === "completed") {
+      const receipt = window.prompt("Enter Receipt No (stored internally):");
+      if (receipt === null) return;
+
+      receiptNo = String(receipt || "").trim();
+      if (!receiptNo) {
+        return setMsg({ type: "err", text: "Receipt No required." });
+      }
+    }
 
     setSaving(true);
-    try {
-      const res = await apiFetch(`/api/tickets/${encodeURIComponent(tn)}/status`, {
+
+    const res = await apiFetch(
+      `/api/tickets/${encodeURIComponent(tn)}/status`,
+      {
         method: "PATCH",
-        body: JSON.stringify({ status, op_remark: opRemark }),
-      });
-      setTicket(res.ticket);
-      setMsg({ type: "ok", text: "Status updated successfully" });
-    } catch (e) {
-      setMsg({ type: "err", text: e.message || "Failed to update status" });
-    } finally {
-      setSaving(false);
-    }
-  };
+        body: JSON.stringify({
+          status,
+          opRemarks: opRemark, // goes in email
+          receiptNo: receiptNo, // stored in remark column
+        }),
+      }
+    );
+
+    setTicket(res.ticket);
+    setMsg({ type: "ok", text: "Status updated successfully" });
+  } catch (e) {
+    setMsg({ type: "err", text: e.message || "Failed to update status" });
+  } finally {
+    setSaving(false);
+  }
+};
+
 
   return (
     <div className="ocs-page">

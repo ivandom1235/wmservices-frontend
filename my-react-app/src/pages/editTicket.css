@@ -292,3 +292,19 @@ border-radius: 14px;
 .et-btn-ghost:active {
   transform: translateY(1px);
 }
+.et-field select {
+  width: 100%;
+  padding: 12px 12px;
+  background: rgba(10, 10, 10, 0.70);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 12px;
+  color: #f2f2f2;
+  font: inherit;
+}
+
+.et-field select:focus {
+  outline: none;
+  border-color: rgba(245, 197, 24, 0.60);
+  box-shadow: 0 0 0 4px rgba(245, 197, 24, 0.22);
+  background: rgba(12, 12, 12, 0.85);
+}

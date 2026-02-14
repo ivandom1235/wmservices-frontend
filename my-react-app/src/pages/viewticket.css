@@ -381,3 +381,131 @@
     width: 100%;
   }
 }
+
+/* src/pages/viewticket.css */
+
+/* ✅ add styling for the clickable ticket number button */
+.vt-link {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  font: inherit;
+  color: var(--accent-2);
+  transition: color 0.15s ease, text-decoration-color 0.15s ease, filter 0.15s ease;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.vt-link:hover {
+  color: var(--accent);
+  filter: brightness(1.05);
+}
+
+.vt-link:focus-visible {
+  outline: none;
+  border-radius: 8px;
+  box-shadow: 0 0 0 4px var(--focus);
+}
+
+/* ✅ style the status dropdown to match theme */
+.vt-table select {
+  width: 100%;
+  padding: 10px 10px;
+  background: rgba(10, 10, 10, 0.70);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.vt-table select:focus {
+  outline: none;
+  border-color: rgba(245, 197, 24, 0.60);
+  box-shadow: 0 0 0 4px var(--focus);
+  background: rgba(12, 12, 12, 0.85);
+}
+
+/* ✅ optional: make remarks cell scroll nicely if huge */
+.vt-desc {
+  max-width: 420px;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* ✅ optional: improve table row hover readability with selects/links */
+.vt-table tbody tr:hover td .vt-link {
+  color: var(--accent);
+}
+/* ✅ Ensure Status column has enough width */
+.vt-table thead th:nth-child(8),
+.vt-table tbody td:nth-child(8) {
+  min-width: 170px;
+  width: 170px;
+}
+
+/* ✅ Status select + dot wrapper */
+.vt-status-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ✅ Status select should not truncate */
+.vt-status-select {
+  width: 100%;
+  min-width: 140px;
+  padding: 10px 12px;
+  background: rgba(10, 10, 10, 0.70);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font: inherit;
+  line-height: 1.1;
+  appearance: auto; /* keep native dropdown arrow */
+}
+
+.vt-status-select:focus {
+  outline: none;
+  border-color: rgba(245, 197, 24, 0.60);
+  box-shadow: 0 0 0 4px var(--focus);
+  background: rgba(12, 12, 12, 0.85);
+}
+
+/* ✅ The colored dot (with subtle glow) */
+.vt-status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex: 0 0 10px;
+  background: rgba(242, 242, 242, 0.35);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+}
+
+/* Match your existing color intent */
+.vt-status-dot.registered {
+  background: rgba(24, 112, 245, 0.95);
+  box-shadow: 0 0 12px rgba(24, 112, 245, 0.35);
+}
+
+.vt-status-dot.in_progress,
+.vt-status-dot.in-progress {
+  background: rgba(255, 223, 106, 0.95);
+  box-shadow: 0 0 12px rgba(255, 223, 106, 0.35);
+}
+
+.vt-status-dot.completed,
+.vt-status-dot.resolved,
+.vt-status-dot.closed {
+  background: rgba(103, 232, 167, 0.95);
+  box-shadow: 0 0 12px rgba(103, 232, 167, 0.35);
+}
+
+.vt-status-dot.delayed {
+  background: rgba(222, 7, 7, 0.95);
+  box-shadow: 0 0 12px rgba(222, 7, 7, 0.35);
+}
+
