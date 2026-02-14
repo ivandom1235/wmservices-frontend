@@ -12,7 +12,7 @@ const STATUS_OPTIONS = [
   "in_progress",
   "delayed",
   "completed",
-  "resolved",
+  "cancelled",
 ];
 
 export default function ViewTickets() {

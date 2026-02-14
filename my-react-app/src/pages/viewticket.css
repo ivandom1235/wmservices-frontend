@@ -35,44 +35,22 @@
   gap: 16px;
 }
 
-.vt-header {
+.vt-header,
+.vt-card {
   width: 100%;
-  padding: 18px 20px;
-  background: rgba(20, 20, 20, 0.72);
+  padding: 20px;
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 18px;
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  position: relative;
-  overflow: hidden;
+}
 
+.vt-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 14px;
-}
-
-.vt-header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 16px;
-  right: 16px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(245, 197, 24, 0.55), transparent);
-  opacity: 0.9;
-}
-
-.vt-header::after {
-  content: "";
-  position: absolute;
-  inset: -120px -140px auto auto;
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(circle, rgba(245, 197, 24, 0.18), transparent 60%);
-  filter: blur(2px);
-  pointer-events: none;
+  align-items: center;
 }
 
 .vt-kicker {
@@ -80,27 +58,12 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(242, 242, 242, 0.52);
-  margin-bottom: 6px;
 }
 
 .vt-title {
   margin: 0;
   font-size: 1.55rem;
   font-weight: 800;
-  letter-spacing: 0.2px;
-}
-
-.vt-card {
-  width: 100%;
-  padding: 20px;
-  background: rgba(20, 20, 20, 0.72);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  position: relative;
-  overflow: hidden;
 }
 
 .vt-controls {
@@ -126,49 +89,28 @@
 
 .vt-field input {
   width: 100%;
-  padding: 12px 12px;
+  padding: 12px;
   background: rgba(10, 10, 10, 0.70);
   border: 1px solid var(--border);
   border-radius: 12px;
   color: var(--text);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-}
-
-.vt-field input::placeholder {
-  color: rgba(242, 242, 242, 0.35);
 }
 
 .vt-field input:focus {
   outline: none;
   border-color: rgba(245, 197, 24, 0.60);
   box-shadow: 0 0 0 4px var(--focus);
-  background: rgba(12, 12, 12, 0.85);
 }
 
 .vt-actions {
   display: flex;
   gap: 10px;
-  align-items: center;
 }
 
 .vt-meta {
   margin-top: 14px;
   font-size: 0.92rem;
   color: var(--muted);
-}
-
-.vt-message {
-  margin-top: 12px;
-  font-size: 0.92rem;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.vt-message.err {
-  color: #ff8a8a;
-  border-color: rgba(255, 138, 138, 0.25);
 }
 
 .vt-table-wrap {
@@ -187,19 +129,15 @@
 .vt-table thead th {
   text-align: left;
   font-size: 0.82rem;
-  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: rgba(242, 242, 242, 0.70);
-  padding: 12px 12px;
+  padding: 12px;
   border-bottom: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.03);
 }
 
 .vt-table tbody td {
-  padding: 12px 12px;
+  padding: 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  color: rgba(242, 242, 242, 0.92);
-  vertical-align: top;
   font-size: 0.94rem;
 }
 
@@ -209,110 +147,75 @@
 
 .vt-td-center {
   text-align: center;
-  padding: 18px 12px !important;
+  padding: 18px !important;
   color: var(--muted);
 }
 
 .mono {
-  font-variant-numeric: tabular-nums;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: ui-monospace, monospace;
 }
 
 .vt-desc {
   max-width: 420px;
   white-space: normal;
   word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
-.vt-pill {
-  display: inline-flex;
+/* ============================= */
+/* Status Dot Styling */
+/* ============================= */
+
+.vt-status-wrap {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text);
-  font-size: 0.85rem;
-  font-weight: 700;
-  white-space: nowrap;
+  gap: 10px;
 }
 
-.vt-pill::before {
-  content: "";
-  width: 8px;
-  height: 8px;
+.vt-status-dot {
+  width: 10px;
+  height: 10px;
   border-radius: 999px;
+  flex: 0 0 10px;
   background: rgba(242, 242, 242, 0.35);
 }
 
-/* Status accents (best-effort; safe even if statuses vary) */
-.vt-pill.registered::before,
-.vt-pill.open::before {
-  background: rgba(24, 112, 245, 0.85);
+/* Registered = Blue */
+.vt-status-dot.registered {
+  background: rgba(24, 112, 245, 0.95);
+  box-shadow: 0 0 12px rgba(24, 112, 245, 0.35);
 }
 
-.vt-pill.completed::before,
-.vt-pill.closed::before,
-.vt-pill.resolved::before {
-  background: rgba(103, 232, 167, 0.95);
-}
-
-.vt-pill.pending::before,
-.vt-pill.in\\ progress::before,
-.vt-pill.in-progress::before {
+/* In Progress = Yellow */
+.vt-status-dot.in_progress,
+.vt-status-dot.in-progress {
   background: rgba(255, 223, 106, 0.95);
+  box-shadow: 0 0 12px rgba(255, 223, 106, 0.35);
 }
 
-.vt-pill.cancelled::before,
-.vt-pill.canceled::before,
-.vt-pill.rejected::before {
-  background: rgba(255, 138, 138, 0.95);
+/* Completed = Green */
+.vt-status-dot.completed,
+.vt-status-dot.closed {
+  background: rgba(103, 232, 167, 0.95);
+  box-shadow: 0 0 12px rgba(103, 232, 167, 0.35);
 }
-/* Change delayed status dot to red */
-.vt-pill.delayed::before {
+
+/* Cancelled / Canceled = Red */
+.vt-status-dot.cancelled,
+.vt-status-dot.canceled {
+  background: rgba(255, 80, 80, 0.95);
+  box-shadow: 0 0 12px rgba(255, 80, 80, 0.35);
+}
+
+/* Delayed = Dark Red */
+.vt-status-dot.delayed {
   background: rgba(222, 7, 7, 0.95);
+  box-shadow: 0 0 12px rgba(222, 7, 7, 0.35);
 }
 
-
-.vt-btn-ghost,
-.vt-btn-soft,
-.vt-btn-primary {
-  border-radius: 14px;
-  cursor: pointer;
-  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease,
-    box-shadow 0.15s ease, filter 0.15s ease;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.vt-btn-ghost {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  border: 1px solid var(--border);
-  padding: 10px 14px;
-}
-
-.vt-btn-ghost:hover {
-  border-color: rgba(245, 197, 24, 0.45);
-  background: rgba(245, 197, 24, 0.10);
-  color: var(--accent);
-  transform: translateY(-1px);
-}
-
-.vt-btn-soft {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  border: 1px solid var(--border);
-  padding: 12px 14px;
-}
-
-.vt-btn-soft:hover {
-  border-color: rgba(245, 197, 24, 0.45);
-  background: rgba(245, 197, 24, 0.10);
-  color: var(--accent);
-  transform: translateY(-1px);
-}
+/* ============================= */
+/* Buttons */
+/* ============================= */
 
 .vt-btn-primary {
   border: none;
@@ -320,71 +223,24 @@
   color: #000;
   font-weight: 900;
   padding: 12px 14px;
-  box-shadow: 0 14px 30px rgba(245, 197, 24, 0.18);
+  border-radius: 14px;
+  cursor: pointer;
 }
 
-.vt-btn-primary:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.02);
-  box-shadow: 0 18px 44px rgba(245, 197, 24, 0.24);
+.vt-btn-soft,
+.vt-btn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  border-radius: 14px;
+  color: var(--text);
+  cursor: pointer;
 }
 
-.vt-btn-primary:active,
-.vt-btn-soft:active,
-.vt-btn-ghost:active {
-  transform: translateY(0px);
-}
+/* ============================= */
+/* Links */
+/* ============================= */
 
-.vt-btn-primary:disabled,
-.vt-btn-soft:disabled,
-.vt-btn-ghost:disabled {
-  opacity: 0.75;
-  cursor: not-allowed;
-}
-
-.vt-btn-ghost:focus-visible,
-.vt-btn-soft:focus-visible,
-.vt-btn-primary:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 4px var(--focus);
-  border-color: rgba(245, 197, 24, 0.60);
-}
-
-/* Responsive */
-@media (max-width: 980px) {
-  .vt-table-wrap {
-    overflow: auto;
-  }
-
-  .vt-table {
-    min-width: 980px; /* enables horizontal scroll on small screens */
-  }
-}
-
-@media (max-width: 520px) {
-  .vt-page {
-    padding: 60px 14px 38px;
-  }
-
-  .vt-header,
-  .vt-card {
-    padding: 18px;
-    border-radius: 16px;
-  }
-
-  .vt-actions {
-    width: 100%;
-  }
-
-  .vt-btn-primary,
-  .vt-btn-soft {
-    width: 100%;
-  }
-}
-
-/* src/pages/viewticket.css */
-
-/* ✅ add styling for the clickable ticket number button */
 .vt-link {
   background: transparent;
   border: none;
@@ -393,68 +249,16 @@
   text-decoration: underline;
   font: inherit;
   color: var(--accent-2);
-  transition: color 0.15s ease, text-decoration-color 0.15s ease, filter 0.15s ease;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
 }
 
 .vt-link:hover {
   color: var(--accent);
-  filter: brightness(1.05);
 }
 
-.vt-link:focus-visible {
-  outline: none;
-  border-radius: 8px;
-  box-shadow: 0 0 0 4px var(--focus);
-}
+/* ============================= */
+/* Status Select */
+/* ============================= */
 
-/* ✅ style the status dropdown to match theme */
-.vt-table select {
-  width: 100%;
-  padding: 10px 10px;
-  background: rgba(10, 10, 10, 0.70);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  color: var(--text);
-  font: inherit;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-}
-
-.vt-table select:focus {
-  outline: none;
-  border-color: rgba(245, 197, 24, 0.60);
-  box-shadow: 0 0 0 4px var(--focus);
-  background: rgba(12, 12, 12, 0.85);
-}
-
-/* ✅ optional: make remarks cell scroll nicely if huge */
-.vt-desc {
-  max-width: 420px;
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-/* ✅ optional: improve table row hover readability with selects/links */
-.vt-table tbody tr:hover td .vt-link {
-  color: var(--accent);
-}
-/* ✅ Ensure Status column has enough width */
-.vt-table thead th:nth-child(8),
-.vt-table tbody td:nth-child(8) {
-  min-width: 170px;
-  width: 170px;
-}
-
-/* ✅ Status select + dot wrapper */
-.vt-status-wrap {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* ✅ Status select should not truncate */
 .vt-status-select {
   width: 100%;
   min-width: 140px;
@@ -463,49 +267,30 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   color: var(--text);
-  font: inherit;
-  line-height: 1.1;
-  appearance: auto; /* keep native dropdown arrow */
 }
 
 .vt-status-select:focus {
   outline: none;
   border-color: rgba(245, 197, 24, 0.60);
   box-shadow: 0 0 0 4px var(--focus);
-  background: rgba(12, 12, 12, 0.85);
 }
 
-/* ✅ The colored dot (with subtle glow) */
-.vt-status-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  flex: 0 0 10px;
-  background: rgba(242, 242, 242, 0.35);
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
-}
+/* ============================= */
+/* Responsive */
+/* ============================= */
 
-/* Match your existing color intent */
-.vt-status-dot.registered {
+@media (max-width: 980px) {
+  .vt-table-wrap {
+    overflow: auto;
+  }
+  .vt-table {
+    min-width: 980px;
+  }
+}
+/* Registered = Blue */
+.vt-status-dot.registered,
+.vt-status-dot.new,
+.vt-status-dot.open {
   background: rgba(24, 112, 245, 0.95);
   box-shadow: 0 0 12px rgba(24, 112, 245, 0.35);
 }
-
-.vt-status-dot.in_progress,
-.vt-status-dot.in-progress {
-  background: rgba(255, 223, 106, 0.95);
-  box-shadow: 0 0 12px rgba(255, 223, 106, 0.35);
-}
-
-.vt-status-dot.completed,
-.vt-status-dot.resolved,
-.vt-status-dot.closed {
-  background: rgba(103, 232, 167, 0.95);
-  box-shadow: 0 0 12px rgba(103, 232, 167, 0.35);
-}
-
-.vt-status-dot.delayed {
-  background: rgba(222, 7, 7, 0.95);
-  box-shadow: 0 0 12px rgba(222, 7, 7, 0.35);
-}
-

@@ -147,7 +147,7 @@ export default function EditTicket() {
 };
 
 
-  const STATUS_OPTIONS = ["registered", "in_progress", "delayed", "completed", "resolved"];
+  const STATUS_OPTIONS = ["registered", "in_progress", "delayed", "completed", "cancelled"];
 
 const saveTicket = async (e) => {
   e?.preventDefault?.();
@@ -278,7 +278,7 @@ else {
     onChange={(e) => onChangeField("status", e.target.value)}
     disabled={!!f.readOnly}
   >
-    {["registered", "in_progress", "delayed", "completed", "resolved"].map((s) => (
+    {["registered", "in_progress", "delayed", "completed", "cancelled"].map((s) => (
       <option key={s} value={s}>
         {s}
       </option>
